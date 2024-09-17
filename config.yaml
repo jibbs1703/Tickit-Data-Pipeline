@@ -1,0 +1,5 @@
+S3_LANDING_BUCKET:
+  de-project1-landing
+
+S3_TRANSFORMED_BUCKET:
+  de-project1-transformed
