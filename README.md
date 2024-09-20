@@ -23,7 +23,7 @@ original database.
 ## Getting Raw Data into the Data Lake (AWS S3 Bucket)
 
 The first step is to upload the raw data tables to the data lake (AWS S3). Here, the tables are in their raw 
-and untransformed state. The [raw_data_to_datalake.py](raw_data_to_datalake.py) file enables the raw data to be
+and untransformed state. The [extract_to_datalake.py](extract_to_datalake.py) file enables the raw data to be
 moved from its primary source (SQL server, flat files like txt or csv files, XML, JSON, AWS S3 bucket, AWS RDS) 
 into the data lake.
 

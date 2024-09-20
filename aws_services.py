@@ -3,10 +3,10 @@ import tempfile
 import logging
 import boto3
 import joblib
+import psycopg2
 from botocore.exceptions import ClientError
 from io import StringIO
 from dotenv import load_dotenv
-
 
 
 class S3Buckets:
@@ -170,3 +170,104 @@ class S3Buckets:
         df.to_csv(csv_buffer, header=True, index=False)
         self.client.put_object(Bucket=bucket_name, Body=csv_buffer.getvalue(), Key = object_name)
         print("Dataframe is saved as CSV in S3 bucket.")
+
+
+class RedShift:
+    @classmethod
+    def credentials(cls, region=None):
+        # Load the User's Access and Secret Key from .env file
+        load_dotenv()
+        secret = os.getenv("SECRET_KEY")
+        access = os.getenv("ACCESS_KEY")
+        return cls(secret, access, region)
+
+    def __init__(self, secret, access, region):
+        if region is None:
+            self.client = boto3.client('redshift', aws_access_key_id=access, aws_secret_access_key=secret)
+            self.db_credentials = None
+        else:
+            self.location = {'LocationConstraint': region}
+            self.client = boto3.client('redshift', aws_access_key_id=access, aws_secret_access_key=secret, region_name=region)
+            self.db_credentials = None
+
+    def create_redshift_cluster(self, cluster_identifier, node_type, master_username, master_user_password, db_name, iam_role, number_of_nodes):
+        try:
+            response = self.client.create_cluster(
+                ClusterIdentifier=cluster_identifier,
+                NodeType=node_type,
+                MasterUsername=master_username,
+                MasterUserPassword=master_user_password,
+                DBName=db_name,
+                NumberOfNodes=number_of_nodes,
+                IamRoles=[iam_role]
+            )
+            print(f"Cluster {cluster_identifier} has been created.")
+
+        except Exception as e:
+            print(f"Error creating Redshift cluster: {e}")
+
+    def create_database(self, cluster_identifier, db_name, db_user, db_password):
+        try:
+            cluster_props = self.client.describe_clusters(ClusterIdentifier=cluster_identifier)['Clusters'][0]
+            endpoint = cluster_props['Endpoint']['Address']
+            port = cluster_props['Endpoint']['Port']
+
+            # Assuming you have psycopg2 installed for PostgreSQL connection to Redshift
+            import psycopg2
+            conn = psycopg2.connect(
+                dbname="dev",  # Typically the default DB in Redshift
+                user=db_user,
+                password=db_password,
+                host=endpoint,
+                port=port
+            )
+            cur = conn.cursor()
+            cur.execute(f"CREATE DATABASE {db_name};")
+            conn.commit()
+            cur.close()
+            conn.close()
+            print(f"Database {db_name} created successfully.")
+        except Exception as e:
+            print(f"Error creating database: {e}")
+
+    def drop_database(self, cluster_identifier, db_name, db_user, db_password):
+        try:
+            cluster_props = self.client.describe_clusters(ClusterIdentifier=cluster_identifier)['Clusters'][0]
+            endpoint = cluster_props['Endpoint']['Address']
+            port = cluster_props['Endpoint']['Port']
+
+            # Assuming you have psycopg2 installed for PostgreSQL connection to Redshift
+            import psycopg2
+            conn = psycopg2.connect(
+                dbname="dev",  # Typically the default DB in Redshift
+                user=db_user,
+                password=db_password,
+                host=endpoint,
+                port=port
+            )
+            cur = conn.cursor()
+            cur.execute(f"DROP DATABASE IF EXISTS {db_name};")
+            conn.commit()
+            cur.close()
+            conn.close()
+            print(f"Database {db_name} dropped successfully.")
+        except Exception as e:
+            print(f"Error dropping database: {e}")
+
+
+class Glue:
+    @classmethod
+    def credentials(cls, region=None):
+        # Load the User's Access and Secret Key from .env file
+        load_dotenv()
+        secret = os.getenv("SECRET_KEY")
+        access = os.getenv("ACCESS_KEY")
+        return cls(secret, access, region)
+
+    def __init__(self, secret, access, region):
+        if region is None:
+            self.client = boto3.client('glue', aws_access_key_id=access, aws_secret_access_key=secret)
+        else:
+            self.location = {'LocationConstraint': region}
+            self.client = boto3.client('glue', aws_access_key_id=access, aws_secret_access_key=secret,
+                                       region_name=region)

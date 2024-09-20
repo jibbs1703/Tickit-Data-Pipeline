@@ -1,5 +1,29 @@
+AWS_REGION:
+  us-east-2
+
 S3_LANDING_BUCKET:
   de-project1-landing
 
 S3_TRANSFORMED_BUCKET:
   de-project1-transformed
+
+CLUSTER_IDENTIFIER :
+  tickit-etl-cluster
+
+DB_NAME:
+  tickit_etl_db
+
+MASTER_USERNAME:
+  jibbsuser
+
+MASTER_USER_PASSWORD:
+  StaySafe123+
+
+NODE_TYPE:
+  dc2.large
+
+NUMBER_OF_NODES:
+  1
+
+REDSHIFT_IAM_ROLE:
+  arn:aws:iam::851725307232:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift1
