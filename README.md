@@ -1,4 +1,5 @@
 # Tickit Data Pipeline
+
 ## Overview
 
 This repository contains a data pipeline that extracts, transforms and loads data from an AWS S3 bucket into
@@ -9,14 +10,22 @@ A Glue Crawler catalogs the raw data while a Glue Job runs the Glue script to pe
 on the data, and stores it into Redshift Cluster. The pipeline ensures that data is efficiently moved 
 from a data lake (AWS S3) to a data warehouse (AWS Redshift), using an automated orchestration tool (AWS Glue).
 
-## Project Dataset 
+All AWS services are put into a custom python module containing classes for each of the AWS service used in the
+ETL process. 
+
+## Project Dataset and Business Goal
 
 This project uses TICKIT, a sample database provided by AWS. The dataset is acquired in its flat file format since
 this project aims to take these flat files and transform them into separate tables that make up a database in AWS
-Redshift. The database consists of seven tables: two fact tables and five dimensions. To ensure the full ETL process
-is demonstrated, a few columns would be added to some of the database tables before it is loaded to the target
-storage in AWS Redshift. The final database would have the schema below, with some extra columns beyond the 
-original database. 
+Redshift. The database consists of seven tables: two fact tables and five dimensions. 
+
+In this project, the business goal is to provide business executives with an idea of which sellers sold the most 
+tickets, what region of the country saw the most sales during the year and what region brought in the most sales
+commission for the year.
+
+The final database would combine information from all the tables into one consolidated format. The data includes
+users who sold tickets, venues where events took place, events and their categories, dates, ticket listings, and
+sales details. 
 
 ![Alt text](diagram/tickitdb.png "Tickit Database Schema")
 

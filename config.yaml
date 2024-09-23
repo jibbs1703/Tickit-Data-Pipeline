@@ -4,8 +4,17 @@ AWS_REGION:
 S3_LANDING_BUCKET:
   de-project1-landing
 
+GLUE_SCRIPTS_BUCKET:
+  glue_etl_scripts
+
+GLUE_SCRIPT:
+  tickit_etl_script.py
+
 S3_TRANSFORMED_BUCKET:
   de-project1-transformed
+
+PORT:
+  5439
 
 CLUSTER_IDENTIFIER :
   tickit-etl-cluster
@@ -27,3 +36,7 @@ NUMBER_OF_NODES:
 
 REDSHIFT_IAM_ROLE:
   arn:aws:iam::851725307232:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift1
+
+CRAWLER_NAME:
+  tickit_etl_crawler
+

@@ -2,6 +2,7 @@ import os
 import tempfile
 import logging
 import boto3
+import psycopg2
 import joblib
 import psycopg2
 from botocore.exceptions import ClientError
@@ -206,16 +207,13 @@ class RedShift:
         except Exception as e:
             print(f"Error creating Redshift cluster: {e}")
 
-    def create_database(self, cluster_identifier, db_name, db_user, db_password):
+    def create_database(self, cluster_identifier, db_name, db_user, db_password, port):
         try:
             cluster_props = self.client.describe_clusters(ClusterIdentifier=cluster_identifier)['Clusters'][0]
             endpoint = cluster_props['Endpoint']['Address']
-            port = cluster_props['Endpoint']['Port']
 
-            # Assuming you have psycopg2 installed for PostgreSQL connection to Redshift
-            import psycopg2
             conn = psycopg2.connect(
-                dbname="dev",  # Typically the default DB in Redshift
+                dbname=db_name,  # Typically the default DB in Redshift
                 user=db_user,
                 password=db_password,
                 host=endpoint,
@@ -255,6 +253,12 @@ class RedShift:
             print(f"Error dropping database: {e}")
 
 
+
+
+
+
+
+
 class Glue:
     @classmethod
     def credentials(cls, region=None):
@@ -271,3 +275,23 @@ class Glue:
             self.location = {'LocationConstraint': region}
             self.client = boto3.client('glue', aws_access_key_id=access, aws_secret_access_key=secret,
                                        region_name=region)
+
+    def create_glue_crawler(self, crawler_name, iam_role, bucket_name, db_name):
+
+        try:
+            response = self.client.create_crawler(
+                Name=crawler_name,
+                Role=iam_role,
+                DatabaseName=db_name,
+                Targets={'S3Targets': [{'Path': f's3://{bucket_name}/'}]})
+
+            print(f"Crawler '{crawler_name}' created successfully.")
+            return response
+
+        except Exception as e:
+            print(f"Error creating crawler: {e}")
+
+    def start_glue_crawler(self, crawler_name):
+        # Start the crawler
+        self.client.start_crawler(Name=crawler_name)
+        print("Glue Crawler created and started.")
