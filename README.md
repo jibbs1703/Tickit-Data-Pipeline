@@ -12,7 +12,7 @@ This pipeline can be modified to source data from various external inputs includ
 application logs, databases, and mobile applications. The steps in the pipeline can be performed using either 
 the Python shell or Pyspark jobs. 
 
-In this project, raw, untransformed data resides in external databases and is initially extracted as .csv files 
+In this project, raw, untransformed data resides in on-premises NOSQL databases and is initially extracted as .csv files 
 into a bronze tier S3 bucket. The pipeline works on the raw data, processing it, and subsequently storing it in
 the appropriate data lake tier as determined by business requirements. The tiers are represented as folders within
 a single S3 bucket for this project. However, each tier should be given a dedicated bucket (as it is in production
