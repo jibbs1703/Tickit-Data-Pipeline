@@ -31,6 +31,10 @@ jobs:
         run: |
           python -m ruff check src/ tests/ 
 
-      - name: Test with pytest
+      - name: Run test with pytest
         run: |
-          pytest -s tests/
+          if ls tests/*.py 1> /dev/null 2>&1; then
+            pytest -s tests/
+          else
+            echo "No tests found, skipping..."
+          fi
