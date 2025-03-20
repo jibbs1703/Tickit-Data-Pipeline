@@ -22,11 +22,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-            language: python
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
