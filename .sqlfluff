@@ -1,0 +1,39 @@
+[sqlfluff]
+dialect = mysql
+
+[sqlfluff:rules]
+capitalisation.policy = consistent
+
+[sqlfluff:rules:L010]
+capitalisation_policy = upper
+
+[sqlfluff:rules:L011]
+capitalisation_policy = lower
+
+[sqlfluff:rules:L014]
+capitalisation_policy = lower
+
+[sqlfluff:rules:L016]
+forbid_multiline = True
+
+[sqlfluff:rules:L018]
+require_aliases = True
+
+[sqlfluff:rules:L019]
+comma_style = leading
+
+[sqlfluff:rules:L022]
+aliasing = explicit
+
+[sqlfluff:rules:L025]
+force_enable = True
+
+[sqlfluff:rules:L030]
+require_final_semicolon = True
+
+# Formatting settings
+[sqlfluff:format]
+indent_width = 4
+tab_space_size = 4
+reindent_aligned = True
+strip_whitespace_lines = True
