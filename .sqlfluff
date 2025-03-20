@@ -2,7 +2,6 @@
 dialect = mysql
 
 [sqlfluff:rules]
-max_line_length = 100 
 capitalisation.policy = consistent
 
 [sqlfluff:rules:L010]

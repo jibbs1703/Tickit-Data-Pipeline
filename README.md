@@ -15,11 +15,11 @@ dependencies between tasks are correctly handled.  Airflow's robust features ena
 and alerting, ensuring pipeline reliability. 
 
 - AWS Integration: The project seamlessly integrates with various AWS resources, including:
-1. EC2: Relaible and highly available computing for running the orchestrator.
+1. EC2: Reliable and highly available computing for running the orchestrator.
 
-1. S3: Scalable object storage for the Bronze, Silver, and Gold layers.
+2. S3: Scalable object storage for the Bronze, Silver, and Gold layers.
 
-1. Redshift: Scalable data warehouse used for providing a high-performance analytical database.
+3. Redshift: Scalable data warehouse used for providing a high-performance analytical database.
 
 ## Value
 This project serves as a valuable example of building a modern data lake on AWS using Airflow, showcasing best
