@@ -2,7 +2,7 @@
 
 import argparse
 
-from src.extract.extract import run_extract
+from src.extract.extract import run_extraction
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Connect to MongoDB.")
@@ -20,12 +20,12 @@ if __name__ == "__main__":
         "--collections",
         type=str,
         nargs="+",
-        default=["users"],
-        help="MongoDB collection names",
+        default=["category", "events", "listing", "sales", "users", "venue"],
+        help="Tickit DB collection names",
     )
     args = parser.parse_args()
 
-    run_extract(
+    run_extraction(
         host=args.host,
         port=args.port,
         database=args.database,

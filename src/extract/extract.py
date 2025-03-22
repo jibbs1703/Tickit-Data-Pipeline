@@ -46,7 +46,7 @@ def get_data_from_collection(db: Database, collection_name: str) -> tuple[String
     return StringIO(json_data), f"raw-files/{collection_name}.json"
 
 
-def run_extract(host: str, port: int, database: str, collections: list[str], bucket_name: str):
+def run_extraction(host: str, port: int, database: str, collections: list[str], bucket_name: str):
     """Run the Extraction Module Logic"""
     db = connect_to_mongodb(host, port, database)
     for collection in collections:
