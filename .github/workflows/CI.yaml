@@ -1,4 +1,4 @@
-name: Tickit Data Lake CI Pipeline
+name: Tickit Data Pipeline CI
 
 on:
   push:
