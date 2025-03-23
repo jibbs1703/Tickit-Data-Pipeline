@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "refactored tests for the data extraction module and added Makefile"
+COMMIT_MSG ?= "refactored s3 utility for use in the transformation module"
 
 # Target to add changes to staging
 add:
