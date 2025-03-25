@@ -23,4 +23,20 @@ This project serves as a valuable example of building a modern data pipelines us
 practices for data ingestion, processing, and transformation.  It provides a solid foundation for building a 
 robust data platform to support a wide range of analytical needs.
 
-Feel free to fork, clone or zip the contents of this repository for your needs. 
+## Project Setup
+- Clone the repository.
+   ```bash
+    git clone https://github.com/jibbs1703/Tickit-Data-Pipeline
+   ```
+- Create a virtual environment.
+   ```bash
+    python3 -m venv venv
+   ```
+- Activate the virtual environment.
+   ```bash
+    source venv/bin/activate
+   ```
+- Install the dependencies.
+   ```bash
+    pip install -r requirements.txt
+   ```
