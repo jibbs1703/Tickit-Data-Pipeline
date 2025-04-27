@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "refactored s3 utility for use in the transformation module"
+COMMIT_MSG ?= "added transformation logic for extracted data"
 
 # Target to add changes to staging
 add:

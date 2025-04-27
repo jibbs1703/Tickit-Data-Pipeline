@@ -20,7 +20,7 @@ if __name__ == "__main__":
         "--collections",
         type=str,
         nargs="+",
-        default=["category", "events", "listing", "sales", "users", "venue"],
+        default=["category", "date", "events", "listing", "sales", "users", "venue"],
         help="Tickit DB collection names",
     )
     args = parser.parse_args()
