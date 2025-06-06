@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "updated CI configuration"
+COMMIT_MSG ?= "updated project description"
 
 # Target to add changes to staging
 add:

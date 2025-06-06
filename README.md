@@ -5,7 +5,7 @@ Welcome to the Tickit Data Lake project! The Tickit Data Lake project demonstrat
 of a scalable and robust data pipeline, leveraging the power of Apache Airflow for orchestration
 and automation. This project provides a practical example of building a modern data pipeline capable of 
 handling the extraction, loading, and transformation (ELT) of batch data, specifically designed to support
-the analytical needs of a business using the Tickit Dataset as a case study. 
+the analytical needs of a business. 
 
 ## Key Features and Technologies:
 
@@ -39,4 +39,4 @@ robust data platform to support a wide range of analytical needs.
 - Install the dependencies.
    ```bash
     pip install -r requirements.txt
-   ```c
+   ```
