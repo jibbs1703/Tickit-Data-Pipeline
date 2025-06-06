@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "added transformation logic for extracted data"
+COMMIT_MSG ?= "updated CI configuration"
 
 # Target to add changes to staging
 add:
