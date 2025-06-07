@@ -2,7 +2,7 @@
 
 import argparse
 
-from src.extract.extract import run_extraction
+from extract.extract import run_extraction
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Connect to MongoDB.")

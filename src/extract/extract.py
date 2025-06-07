@@ -5,8 +5,8 @@ from pymongo import MongoClient
 from pymongo.database import Database
 from pymongo.errors import ConnectionFailure
 
-from src.utils.logs import get_logger
-from src.utils.s3 import S3Client
+from utils.logs import get_logger
+from utils.s3 import S3Client
 
 logger = get_logger()
 s3_client = S3Client.credentials()

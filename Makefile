@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "updated project description"
+COMMIT_MSG ?= "completed date transformation"
 
 # Target to add changes to staging
 add:
