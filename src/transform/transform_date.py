@@ -36,20 +36,10 @@ def transform_date_df(df: pd.DataFrame) -> pd.DataFrame:
                   a new 'caldate' column, and 'caldate' converted to datetime.
     """
     # Mapping month abbreviations to integers
-    month_map = {
-        "JAN": 1,
-        "FEB": 2,
-        "MAR": 3,
-        "APR": 4,
-        "MAY": 5,
-        "JUN": 6,
-        "JUL": 7,
-        "AUG": 8,
-        "SEP": 9,
-        "OCT": 10,
-        "NOV": 11,
-        "DEC": 12,
-    }
+    with open("src/utils/transform.json") as file:
+        transform_json = json.load(file)
+    month_map = transform_json["month_map"]
+
     df["month"] = df["month"].map(month_map)
 
     # Merging year, month, and day into YYYY-MM-DD format
