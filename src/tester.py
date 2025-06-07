@@ -1,10 +1,8 @@
-"""Date Transformation Module"""
-
 import json
 
 import pandas as pd
 
-from src.utils.s3 import S3Client
+from utils.s3 import S3Client
 
 
 def get_df_from_s3(bucket_name: str, file_name: str, folder: str) -> pd.DataFrame:
@@ -19,23 +17,6 @@ def get_df_from_s3(bucket_name: str, file_name: str, folder: str) -> pd.DataFram
 
 
 def transform_date_df(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Transforms the Date DataFrame by performing the following operations:
-
-    1. Maps the contents of the 'month' column from three-letter abbreviations
-       (e.g., 'JAN', 'FEB', etc.) to their corresponding integer values (1-12).
-    2. Combines the 'year', 'month', and 'day' columns into a new column 'caldate'
-       in the format YYYY-MM-DD.
-    3. Converts the 'caldate' column into a datetime type for easier date manipulation.
-
-    Args:
-    df (pd.DataFrame): The input DataFrame containing 'year', 'month', and 'day' columns.
-
-    Returns:
-    pd.DataFrame: A transformed DataFrame with an updated 'month' column,
-                  a new 'caldate' column, and 'caldate' converted to datetime.
-    """
-    # Mapping month abbreviations to integers
     month_map = {
         "JAN": 1,
         "FEB": 2,
@@ -61,3 +42,8 @@ def transform_date_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df[["dateid", "caldate", "qtr", "holiday"]]
 
     return df
+
+
+df = get_df_from_s3(bucket_name="tickit-project-bucket", file_name="date.json", folder="raw-files")
+df = transform_date_df(df)
+print(df.head())
