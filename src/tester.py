@@ -17,6 +17,22 @@ def get_df_from_s3(bucket_name: str, file_name: str, folder: str) -> pd.DataFram
 
 
 def transform_date_df(df: pd.DataFrame) -> pd.DataFrame:
+    """Perform transformations on the date DataFrame.
+    This function performs the following transformations:
+    1. Maps month numbers to month names.
+    2. Merges year, month, and day into a single date column in YYYY-MM-DD format.
+    3. Converts the date column to datetime type.
+
+    Args:
+        df (pd.DataFrame): The date DataFrame to transform.
+
+    Returns:
+        df (pd.DataFrame): The transformed date DataFrame with columns:
+            - dateid: Unique identifier for the date.
+            - caldate: Date in YYYY-MM-DD format.
+            - qtr: Quarter of the year.
+            - holiday: Indicates if the date is a holiday.
+    """
     with open("src/utils/transform.json") as file:
         transform_json = json.load(file)
     month_map = transform_json["month_map"]
@@ -34,6 +50,25 @@ def transform_date_df(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-df = get_df_from_s3(bucket_name="tickit-project-bucket", file_name="date.json", folder="raw-files")
-df = transform_date_df(df)
-print(df.head())
+def transform_users_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Perform transformations the users DataFrame.
+
+    This function performs the following transformations:
+    1. Maps state abbreviations to full state names.
+    2. Fills missing state values with 'Non-US State'.
+    3. Adds country code to phone numbers.
+
+    """
+    with open("src/utils/transform.json") as file:
+        transform_json = json.load(file)
+    abbreviate = transform_json["abbreviationToState"]
+    df["state"] = df["state"].map(abbreviate)
+    df["state"].fillna("Non-US State", inplace=True)
+    df["phone"] = df["phone"].apply(lambda x: f"+1 {x}" if pd.notnull(x) else x)
+    return df
+
+
+df = get_df_from_s3(bucket_name="tickit-project-bucket", file_name="users.json", folder="raw-files")
+df = transform_users_df(df)
+print(df["phone"].head())

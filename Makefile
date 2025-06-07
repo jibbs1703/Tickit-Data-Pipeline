@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "refactored date transformation logic"
+COMMIT_MSG ?= "added users transformation logic"
 
 # Target to add changes to staging
 add:
