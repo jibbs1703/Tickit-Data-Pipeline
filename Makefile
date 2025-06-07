@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "added users transformation logic"
+COMMIT_MSG ?= "added tests for transformation logic"
 
 # Target to add changes to staging
 add:

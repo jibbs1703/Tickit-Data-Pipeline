@@ -26,17 +26,25 @@ robust data platform to support a wide range of analytical needs.
 ## Project Setup
 - Clone the repository.
    ```bash
-    git clone https://github.com/jibbs1703/Tickit-Data-Pipeline
+   git clone https://github.com/jibbs1703/Tickit-Data-Pipeline
+   cd Tickit-Data-Pipeline
    ```
-- Create a virtual environment.
    ```bash
-    python3 -m venv venv
+   # Build Tickit Test Container 
+   docker build -t test-tickit .
    ```
-- Activate the virtual environment.
+
    ```bash
-    source venv/bin/activate
+   # Run Tickit Test Container
+   docker run -it --name tickit-test-container -v .:/app test-tickit
    ```
-- Install the dependencies.
+
    ```bash
-    pip install -r requirements.txt
+   # Clenup Tickit Test Container
+   docker stop tickit-test-container
+   docker rm tickit-test-container
+   ```
+   ```bash
+   # Cleanup all containers
+   docker rm $(docker ps -a -q)
    ```
