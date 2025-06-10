@@ -5,7 +5,7 @@ Welcome to the Tickit Data Lake project! The Tickit Data Lake project demonstrat
 of a scalable and robust data pipeline, leveraging the power of Apache Airflow for orchestration
 and automation. This project provides a practical example of building a modern data pipeline capable of 
 handling the extraction, loading, and transformation (ELT) of batch data, specifically designed to support
-the analytical needs of a business using the Tickit Dataset as a case study. 
+the analytical needs of a business. 
 
 ## Key Features and Technologies:
 
@@ -23,4 +23,28 @@ This project serves as a valuable example of building a modern data pipelines us
 practices for data ingestion, processing, and transformation.  It provides a solid foundation for building a 
 robust data platform to support a wide range of analytical needs.
 
-Feel free to fork, clone or zip the contents of this repository for your needs. 
+## Project Setup
+- Clone the repository.
+   ```bash
+   git clone https://github.com/jibbs1703/Tickit-Data-Pipeline
+   cd Tickit-Data-Pipeline
+   ```
+   ```bash
+   # Build Tickit Test Container 
+   docker build -t test-tickit .
+   ```
+
+   ```bash
+   # Run Tickit Test Container
+   docker run -it --name tickit-test-container -v .:/app test-tickit
+   ```
+
+   ```bash
+   # Clenup Tickit Test Container
+   docker stop tickit-test-container
+   docker rm tickit-test-container
+   ```
+   ```bash
+   # Cleanup all containers
+   docker rm $(docker ps -a -q)
+   ```

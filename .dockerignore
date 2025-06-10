@@ -1,0 +1,21 @@
+# Environments
+config.ini
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+
+# Ruff
+ruff_cache/

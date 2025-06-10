@@ -5,7 +5,7 @@ import boto3
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 
-from src.utils.logs import get_logger
+from utils.logs import get_logger
 
 logger = get_logger()
 
@@ -78,26 +78,21 @@ class S3Client:
         except ConnectionError as e:
             logger.error(f"Error uploading file to S3: {str(e)}")
 
-    def download_file(
-        self, bucket_name: str, object_name: str, file_name: str, folder: str = ""
-    ) -> None:
+    def download_file(self, bucket_name: str, object_name: str, folder: str = "") -> None:
         """
         Downloads a file from an S3 bucket in the user's AWS account.
 
         :param bucket_name: Name of the bucket to download the file from
         :param object_name: Name of the file to download from the S3 bucket
-        :param file_name: Name of the file to save the downloaded content to
         :param folder: The folder path within the S3 bucket.
           Default is an empty string.
 
         Returns: None
         """
         try:
-            self.client.download_file(bucket_name, f"{folder}{object_name}", file_name)
-            logger.info(
-                f"File '{object_name}' downloaded successfully from bucket"
-                "'{bucket_name}' to '{file_name}'."
-            )
+            response = self.client.get_object(Bucket=bucket_name, Key=f"{folder}/{object_name}")
+            logger.info(f"File '{object_name}' read successfully from bucket")
+            return response["Body"].read().decode("utf-8")
 
         except ClientError as e:
             logger.error(f"Client Error downloading file: {e}")
