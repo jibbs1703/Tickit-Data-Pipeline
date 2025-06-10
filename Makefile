@@ -1,5 +1,5 @@
 # Default commit message
-COMMIT_MSG ?= "added tests for transformation logic"
+COMMIT_MSG ?= "transformation scripts cleanup"
 
 # Target to add changes to staging
 add:
